@@ -45,7 +45,7 @@ class MCP_ChatBot:
             tools = response.tools
             print(f"\nConnected to {server_name} with tools:", [t.name for t in tools])
 
-            for tool in tools:  # new
+            for tool in tools:
                 self.tool_to_session[tool.name] = session
                 self.available_tools.append(
                     {
@@ -98,7 +98,8 @@ class MCP_ChatBot:
                     tool_id = content.id
 
                     print(f"Calling tool {tool_name} with args {tool_args}")
-                    result = await self.session.call_tool(
+
+                    result = await self.tool_to_session[tool_name].call_tool(
                         tool_name, arguments=tool_args
                     )
 
