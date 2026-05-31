@@ -20,12 +20,48 @@ arxiv-agent/
 
 ## MCP Server
 
-Both server files expose the same tools, resources, and prompts — they differ only in transport:
+Both server files expose the same tools, resources, and prompts — they differ only in transport.
 
-| File | Transport | Use case |
-|---|---|---|
-| `stdio_local_server.py` | stdio | Local processes / Claude Desktop |
-| `sse_remote_server.py` | SSE (port 8001) | Remote / networked clients |
+### Local Server (`stdio_local_server.py`)
+
+Uses **stdio transport**. The client automatically spawns this as a subprocess on your local machine — you don't need to start it manually when using the chatbot client, as `server_config.json` handles that.
+
+To start it directly (e.g. for standalone testing):
+
+```bash
+uv run stdio_local_server.py
+```
+
+### Remote Server (`sse_remote_server.py`)
+
+Uses **SSE (Server-Sent Events) transport** on port 8001. This server runs as a standalone process that remote clients connect to over HTTP.
+
+To start it locally:
+
+```bash
+uv run sse_remote_server.py
+```
+
+The remote server is also deployed on Render:
+
+> **Deployed URL:** <!-- paste your Render URL here -->
+
+### Inspecting with MCP Inspector
+
+The [MCP Inspector](https://github.com/modelcontextprotocol/inspector) is a visual tool that lets you interact with your MCP server through a browser UI — great for testing tools, browsing resources, and running prompts without writing any code.
+
+To launch it:
+
+```bash
+npx @modelcontextprotocol/inspector
+```
+
+This opens a local web UI where you can connect to either server:
+
+- **Local server (stdio):** select `stdio` as the transport, set the command to `uv` and args to `run stdio_local_server.py`
+- **Remote server (SSE):** select `SSE` as the transport and enter `http://localhost:8001/sse` (or your Render URL for the deployed version)
+
+Once connected, you can see all available tools, resources, and prompts, invoke them with custom inputs, and inspect the raw responses — all without running the full chatbot client.
 
 ### Tools
 
