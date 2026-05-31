@@ -44,7 +44,7 @@ uv run sse_remote_server.py
 
 The remote server is also deployed on Render:
 
-> **Deployed URL:** <!-- paste your Render URL here -->
+> **Deployed URL:** https://arxiv-agent-mmt4.onrender.com
 
 ### Inspecting with MCP Inspector
 
