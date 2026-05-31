@@ -29,7 +29,6 @@ def search_papers(topic: str, max_results: int = 2) -> List[str]:
         List of paper IDs found in the search
     """
 
-    time.sleep(3)
     # Use arxiv to find the papers
     client = arxiv.Client(delay_seconds=3, num_retries=1)
 
